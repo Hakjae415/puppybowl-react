@@ -1,20 +1,20 @@
 // Dont forget to make onClick for details
-const ListPups = ({listAll}) => {
+const ListPups = ({listAll, handleDetail}) => {
     return (
-        <>
+        <ul id="container">
           {
             listAll.map((list) => {
                 return (
-                    <div key={list.id}>
+                    <div id="card" key={list.id}>
                         <img src={list.imageUrl} alt={list.name}/>
                         <p>Pupper Name: {list.name}</p>
                         <p>Pupper ID #{list.id}</p>
-                        <button>{list.name} Details</button>
+                        <button onClick={() => handleDetail(list.id)}>{list.name} Details</button>
                     </div>
                 )
             })
           }        
-        </>
+        </ul>
     )
 }
 
