@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react'
-import './App.css'
+import { useEffect, useState } from 'react';
+import './App.css';
 import ListPups from './components/ListPups';
 import SinglePup from './components/SinglePup';
 
-const API_URL = "https://fsa-puppy-bowl.herokuapp.com/api/2306-FSA-ET-WEB-FT-SF/players"
+const API_URL = "https://fsa-puppy-bowl.herokuapp.com/api/2306-FSA-ET-WEB-FT-SF/players";
 
 function App() {
   const [listAll, setListAll] = useState([]);
@@ -14,12 +14,12 @@ function App() {
     const fetchAll = async() => {
       try {
         const response = await fetch(API_URL);
-        const data = await response.json()
-        const results = data.data.players
-        console.log(results)
-        setListAll(results)
+        const data = await response.json();
+        const results = data.data.players;
+        console.log(results);
+        setListAll(results);
       } catch(err) {
-        console.error("Trouble Loading Puppers", err)
+        console.error("Trouble Loading Puppers", err);
       }
     }
     fetchAll();  
@@ -27,21 +27,23 @@ function App() {
 
   const handleDetail = async(id) => {
     try {
-      const response = await fetch(`${API_URL}/${id}`)
-      const data = await response.json()
-      const results = data.data.player
-      console.log(results)
-      setOnePup(results)
-      setIsClick(true)
+      const response = await fetch(`${API_URL}/${id}`);
+      const data = await response.json();
+      const results = data.data.player;
+      console.log(results);
+      setOnePup(results);
+      setIsClick(true);
     } catch(err) {
-      console.error("CAN'T GET DEETS", err)
+      console.error("CAN'T GET DEETS", err);
     }
-  }
+  };
 
   const handleGoBack = () => {
-    setOnePup(null)
-    setIsClick(false)
-  }
+    setOnePup(null);
+    setIsClick(!isClick);
+  };
+
+
   return (
     <>
       {
@@ -53,4 +55,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
