@@ -1,4 +1,3 @@
-// Dont forget to make onClick for details
 const ListPups = ({listAll, handleDetail}) => {
     return (
         <ul id="container">

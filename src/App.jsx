@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import ListPups from './components/ListPups';
+import SinglePup from './components/SinglePup';
 
 const API_URL = "https://fsa-puppy-bowl.herokuapp.com/api/2306-FSA-ET-WEB-FT-SF/players"
 
 function App() {
   const [listAll, setListAll] = useState([]);
   const [onePup, setOnePup] = useState(null);
+  const [isClick, setIsClick] = useState(false);
 
   useEffect(() => {
     const fetchAll = async() => {
@@ -30,14 +32,23 @@ function App() {
       const results = data.data.player
       console.log(results)
       setOnePup(results)
+      setIsClick(true)
     } catch(err) {
       console.error("CAN'T GET DEETS", err)
     }
   }
 
+  const handleGoBack = () => {
+    setOnePup(null)
+    setIsClick(false)
+  }
   return (
     <>
-      <ListPups listAll={listAll} handleDetail={handleDetail}/>
+      {
+      isClick
+      ? <SinglePup onePup={onePup} handleGoBack={handleGoBack}/>
+      : <ListPups listAll={listAll} handleDetail={handleDetail}/>
+      }
     </>
   )
 }
