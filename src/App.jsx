@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import './App.css';
 import ListPups from './components/ListPups';
 import SinglePup from './components/SinglePup';
@@ -12,6 +12,8 @@ function App() {
   const [listAll, setListAll] = useState([]);
   const [onePup, setOnePup] = useState(null);
   const [isClick, setIsClick] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchAll = async() => {
@@ -36,14 +38,17 @@ function App() {
       console.log(results);
       setOnePup(results);
       setIsClick(true);
+      navigate(`/pups/${id}`)
     } catch(err) {
       console.error("CAN'T GET DEETS", err);
     }
+    
   };
 
   const handleGoBack = () => {
     setOnePup(null);
-    setIsClick(!isClick);
+    setIsClick(false);
+    navigate('/')
   };
 
 
@@ -52,7 +57,7 @@ function App() {
       <NavBar/>
       <CreateForm />
       <Routes>
-        <Route path="/pups" element={<ListPups listAll={listAll} handleDetail={handleDetail}/>} />
+        <Route path="/" element={<ListPups listAll={listAll} handleDetail={handleDetail}/>} />
         <Route path="/pups/:id" element={<SinglePup onePup={onePup} handleGoBack={handleGoBack}/>} />
         <Route path="/pups/register" element={<CreateForm/>}/>
       </Routes>  
