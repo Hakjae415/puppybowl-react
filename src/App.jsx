@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import ListPups from './components/ListPups';
 import SinglePup from './components/SinglePup';
+import CreateForm from './components/createForm';
+import NavBar from './components/NavBar';
 
 const API_URL = "https://fsa-puppy-bowl.herokuapp.com/api/2306-FSA-ET-WEB-FT-SF/players";
 
@@ -46,11 +49,13 @@ function App() {
 
   return (
     <>
-      {
-      isClick
-      ? <SinglePup onePup={onePup} handleGoBack={handleGoBack}/>
-      : <ListPups listAll={listAll} handleDetail={handleDetail}/>
-      }
+      <NavBar/>
+      <CreateForm />
+      <Routes>
+        <Route path="/pups" element={<ListPups listAll={listAll} handleDetail={handleDetail}/>} />
+        <Route path="/pups/:id" element={<SinglePup onePup={onePup} handleGoBack={handleGoBack}/>} />
+        <Route path="/pups/register" element={<CreateForm/>}/>
+      </Routes>  
     </>
   )
 }
